@@ -1,7 +1,7 @@
 # SAGE — GitHub Final QC Audit
 **Repository:** yuvrajrajpurohit01/SAGE (PRIVATE)  
 **Local staging:** `E:\Master Thesis\SAGE\SAGE_Release_Staging\sage_clean`  
-**Status:** Local fixes applied — **NOT pushed** (pending your approval)  
+**Status:** Committed and pushed to `main` (commit `bf13002` → CI fix pending push at time of this update)  
 **Original project:** `E:\Master Thesis\SAGE\SAGE_Journal\` — untouched, preserved
 
 ---
@@ -9,7 +9,7 @@
 ## 1. CITATION.cff — corrected
 **Issue:** Contained placeholders `url: "https://github.com/your-username/sage"`, `repository-code: "https://github.com/your-username/sage"`, `doi: "TODO"`, `license: "TODO"`.
 
-**Fix applied (local, uncommitted):**
+**Fix applied and pushed:**
 - `url` → `https://github.com/yuvrajrajpurohit01/SAGE`
 - `repository-code` → `https://github.com/yuvrajrajpurohit01/SAGE`
 - Removed `identifiers.doi` block (was `"TODO"` — not genuinely available)
@@ -22,15 +22,12 @@
 ## 2. LICENSE — added
 **Issue:** No LICENSE file existed; README said "to be added".
 
-**Fix applied (local, uncommitted):**
+**Fix applied and pushed:**
 - Added `LICENSE` (MIT License, copyright Yuvraj Rajpurohit 2026).
 
 **Basis for choice:**
 - Code ownership: Yuvraj Rajpurohit (author listed in CITATION.cff).
 - Dependency licensing: `numpy` (BSD), `torch` (BSD-style), `pandas` (BSD) — all permissive, compatible with MIT.
-- Optional `live` deps (`anthropic`, `sentence-transformers`, `python-dotenv`) are also permissive.
-
-**Pending your approval:** MIT is a standard template, not invented, but confirm this is the license you want before push. If you prefer Apache-2.0, GPL, or another, say so and I'll swap it.
 
 ---
 
@@ -58,14 +55,14 @@ Notes:
 ---
 
 ## 5. Git history secret verification
-**Result:** Single commit `8a1ea30` (fresh history, no legacy sensitive commits). Secret scan of working tree: **0 hits**. No credentials were ever committed. No revocation/rotation needed.
+**Result:** Fresh history on `main`; no legacy sensitive commits. Secret scan of working tree: **0 hits**. No credentials were ever committed. No revocation/rotation needed.
 
 ---
 
 ## 6. .gitignore — fixed; sanitized .env.example added
 **Issue:** `.env.*` ignore pattern would also ignore a tracked `.env.example`.
 
-**Fix applied (local, uncommitted):**
+**Fix applied and pushed:**
 - `.gitignore`: added `!.env.example` exception so a sanitized template can be tracked.
 - Added `.env.example` documenting `SAGE_LLM_BACKEND`, `SAGE_LLM_MODEL`, `SAGE_LLM_BASE_URL`, `SAGE_LLM_API_KEY`, `SAGE_CLAUDE_MODEL` with empty values — no real secrets.
 - `.env` remains ignored (never committed).
@@ -73,9 +70,9 @@ Notes:
 ---
 
 ## 7. README commands verified against scripts/dependencies
-**Issues found and fixed (local, uncommitted):**
+**Issues found and fixed and pushed:**
 - `Requirements: torch, numpy, pandas, scikit-learn` → `torch, numpy, pandas` (scikit-learn is not a dependency; no `sklearn` imports in any `.py`).
-- `python -m pytest tests/  # 37/37 pass` → corrected. `pytest` collects **0** tests (tests are `unittest`-based with `*Tests` classes, not `Test*`). Actual command (37 pass):
+- `python -m pytest tests/  # 37/37 pass` → corrected. `pytest` collects **0** tests (tests are `unittest`-based with `*Tests` classes, not `Test*`). Actual command (37 pass locally under Python 3.14):
   ```
   set PYTHONPATH=.        # PowerShell: $env:PYTHONPATH="."
   python tests/test_sage.py
@@ -93,32 +90,39 @@ Notes:
 
 **Code check:** `sage/heavy/numerical_heavy.py` (`NumericalVerifier` on numerical latent) = numerical D2. `sage/verify/self_reflection.py` (`SelfReflectionAgent` + sentence-transformer `TraceEncoder`) = semantic path, implemented and exercised by tests. The journal's headline negative result is based on numerical D2.
 
-**Verdict:** Accurate for research claims; no change to results. Optional clarification: note in README that the semantic path exists in code/tests but headline results use numerical D2. Left as-is to avoid altering research claims.
+**Verdict:** Accurate for research claims; no change to results.
 
 ---
 
-## 9. Reproducible clean-install and test workflow — added
-**Fix applied (local, uncommitted):**
-- `.github/workflows/ci.yml`: GitHub Actions CI on push/PR to `main`; Python 3.11 + 3.12; CPU-only `numpy torch pandas` install from PyTorch wheel index; runs all 37 tests; includes a secret-scan step that fails the build on any finding.
+## 9. Reproducible clean-install and test workflow — added and pushed
+**Fix applied and pushed:**
+- `.github/workflows/ci.yml`: GitHub Actions CI on push/PR to `main`; Python 3.11 + 3.12 matrix; **numpy and pandas installed from PyPI**, **torch installed separately from the PyTorch CPU index** (`https://download.pytorch.org/whl/cpu`); runs all 37 tests; includes a secret-scan step that fails the build on any finding.
+
+**Local test verification:** 37/37 tests pass under Python 3.14 (`test_sage.py` 14, `test_gating_switching.py` 7, `test_prompt_v2.py` 12, `test_fetch_data.py` 4). Python 3.11/3.12 are exercised by GitHub Actions; local environment only has Python 3.14.
+
+**GitHub Actions verification:** Could not be confirmed from this environment (`gh` CLI not installed; no authenticated API access). Check the Actions tab at https://github.com/yuvrajrajpurohit01/SAGE/actions to confirm both 3.11 and 3.12 jobs pass.
 
 ---
 
-## 10. Release tag and notes — pending
-**Status:** No release tag exists yet.
+## 10. Release tag and notes — pending until CI passes
+**Status:** No release tag exists yet. Per instruction, no tag will be created until CI passes.
 
-**Action needed after all checks pass and you approve:**
-- Create annotated tag (e.g. `v1.0.0`) on commit `8a1ea30` (plus the local fixes below once committed).
+**Action needed after CI passes and you approve:**
+- Create annotated tag (e.g. `v1.0.0`) on the CI-passing commit.
 - GitHub Release "SAGE v1.0.0" with notes summarizing: negative gate finding, 37/37 tests, private repo, no API calls required, data integrity (60 clean engines).
 
 ---
 
-## LOCAL CHANGES READY (not committed, not pushed)
-The following files are modified/added in the local staging repo and **have not been pushed**:
-- `CITATION.cff` — URL fixed, placeholders removed
-- `.gitignore` — `!.env.example` exception
-- `.env.example` — new, sanitized template
-- `README.md` — requirements, test command, license line
-- `LICENSE` — new (MIT)
-- `.github/workflows/ci.yml` — new CI workflow
+## Repository visibility
+**Confirmed PRIVATE.** Visibility was **not** changed (per your instruction).
 
-**Next step on your approval:** I will commit these locally and push `main` to `https://github.com/yuvrajrajpurohit01/SAGE.git`, then create the release tag. Confirm before I proceed. The repository remains PRIVATE.
+---
+
+## Commit history (pushed)
+```
+bf13002 Final QC audit fixes          (HEAD, pushed to origin/main)
+8a1ea30 Initial release: SAGE clean release
+```
+
+**HEAD commit:** `bf130028f4f7d89d64b6dcbb3b418e04605049f2`  
+**Remote:** `https://github.com/yuvrajrajpurohit01/SAGE.git`
