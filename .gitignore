@@ -49,6 +49,7 @@ venv.bak
 # Secrets / credentials (never commit)
 .env
 .env.*
+!.env.example
 *.key
 *.pem
 *.secret

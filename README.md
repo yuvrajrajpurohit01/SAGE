@@ -78,7 +78,7 @@ SAGE/
 pip install -e .
 ```
 
-Requirements: torch, numpy, pandas, scikit-learn
+Requirements: torch, numpy, pandas
 
 ## Reproduction
 
@@ -100,8 +100,12 @@ python tune_journal.py
 # 5. Gate effectiveness analysis (oracle comparison)
 python gate_effectiveness_eval.py
 
-# 6. Run test suite
-python -m pytest tests/  # 37/37 pass
+# 6. Run test suite (37 tests, numerical path only; no API calls)
+set PYTHONPATH=.  # Windows PowerShell: $env:PYTHONPATH="."
+python tests/test_sage.py
+python tests/test_gating_switching.py
+python tests/test_prompt_v2.py
+python tests/test_fetch_data.py
 
 # 7. Generate manuscript
 python generate_docx.py   # SAGE_Journal_Manuscript.docx
@@ -127,7 +131,7 @@ The D2 verifier evaluated here is trained on numerical latent traces from the Pa
 
 ## License
 
-See LICENSE file (to be added).
+See LICENSE file.
 
 ## Citation
 

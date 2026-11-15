@@ -6,8 +6,8 @@ authors:
 title: "SAGE: Selective Agentic Gating with Evaluation for Remaining Useful Life Prediction"
 version: 1.0.0
 date-released: 2026-11-15
-url: "https://github.com/your-username/sage"
-repository-code: "https://github.com/your-username/sage"
+url: "https://github.com/yuvrajrajpurohit01/SAGE"
+repository-code: "https://github.com/yuvrajrajpurohit01/SAGE"
 keywords:
   - remaining-useful-life
   - selective-prediction
@@ -15,10 +15,6 @@ keywords:
   - fuzzy-gating
   - confidence-estimation
   - CMAPSS
-identifiers:
-  - type: doi
-    value: "TODO"
-license: TODO
 abstract: >
   SAGE implements a selective agentic gating framework for turbofan engine
   Remaining Useful Life (RUL) prediction on NASA CMAPSS FD001. The framework

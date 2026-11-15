@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy torch pandas --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Run test suite (37 tests, numerical path only)
+        env:
+          PYTHONPATH: .
+        run: |
+          python tests/test_sage.py
+          python tests/test_gating_switching.py
+          python tests/test_prompt_v2.py
+          python tests/test_fetch_data.py
+
+      - name: Secret scan (fail on findings)
+        run: |
+          python - <<'PY'
+          import os, re, sys
+          root = '.'
+          patterns = {
+            'api_key': r'(?i)api[_-]?key\s*[:=]\s*["\' ]{0,3}[A-Za-z0-9_\-]{10,}',
+            'secret_key': r'(?i)secret[_-]?key\s*[:=]\s*["\' ]{0,3}[A-Za-z0-9_\-]{10,}',
+            'password': r'(?i)password\s*[:=]\s*["\' ]{0,3}[^\s]{6,}',
+            'token': r'(?i)(token|access_token|auth_token)\s*[:=]\s*["\' ]{0,3}[A-Za-z0-9_\-:\.]{10,}',
+            'sk_live': r'sk_live_[A-Za-z0-9]{10,}',
+            'sk_test': r'sk_test_[A-Za-z0-9]{10,}',
+            'ghp_token': r'ghp_[A-Za-z0-9]{10,}',
+            'aws_key': r'AKIA[0-9A-Z]{16}',
+            'private_key': r'-----BEGIN\s+(RSA\s+)?PRIVATE KEY-----',
+            'openai_key': r'sk-[A-Za-z0-9]{20,}',
+            'bearer': r'Bearer\s+[A-Za-z0-9_\-\.=]{20,}',
+          }
+          hits = 0
+          for dirpath, _, files in os.walk(root):
+            if '.git' in dirpath.split(os.sep):
+              continue
+            for fn in files:
+              p = os.path.join(dirpath, fn)
+              try:
+                with open(p, 'r', encoding='utf-8', errors='ignore') as f:
+                  content = f.read()
+              except Exception:
+                continue
+              for name, pat in patterns.items():
+                if re.search(pat, content):
+                  print(f'SECRET: {p} :: {name}')
+                  hits += 1
+          if hits:
+            print(f'TOTAL SECRET HITS: {hits}')
+            sys.exit(1)
+          print('Secret scan clean: 0 hits')
+          PY
