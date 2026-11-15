@@ -1,0 +1,12 @@
+[
+  {
+    "stage": "small",
+    "epoch": 1,
+    "scaled_mse": 0.2804727007097216
+  },
+  {
+    "stage": "confidence",
+    "epoch": 1,
+    "joint_mse": 0.25388583540916443
+  }
+]

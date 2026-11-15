@@ -1,0 +1,1117 @@
+{
+  "seed42": {
+    "best_tau1": 0.15,
+    "best_tau2": 0.0,
+    "best_val_rmse": 12.565369064860365,
+    "tuning_grid": [
+      {
+        "tau1": 0.15,
+        "tau2": 0.0,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.05,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.1,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.2,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.0,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.05,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.1,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.2,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.0,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.05,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.1,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.2,
+        "val_rmse": 12.565369064860365,
+        "val_mae": 9.12483479943074,
+        "val_nasa": 8798.038281524696,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.0,
+        "val_rmse": 12.666414702576581,
+        "val_mae": 9.207512447073883,
+        "val_nasa": 8780.16276559213,
+        "heavy_percent": 0.03201024327784891,
+        "fusion_percent": 4.257362355953905,
+        "small_percent": 95.71062740076825
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.05,
+        "val_rmse": 12.671024294255739,
+        "val_mae": 9.212488398509203,
+        "val_nasa": 8783.290881915505,
+        "heavy_percent": 0.06402048655569782,
+        "fusion_percent": 4.225352112676056,
+        "small_percent": 95.71062740076825
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.1,
+        "val_rmse": 12.690624093976338,
+        "val_mae": 9.221652510834717,
+        "val_nasa": 8836.8018821816,
+        "heavy_percent": 0.2560819462227913,
+        "fusion_percent": 4.0332906530089625,
+        "small_percent": 95.71062740076825
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.2,
+        "val_rmse": 12.74237302902995,
+        "val_mae": 9.246525895122376,
+        "val_nasa": 8870.664311130764,
+        "heavy_percent": 1.440460947503201,
+        "fusion_percent": 2.848911651728553,
+        "small_percent": 95.71062740076825
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.0,
+        "val_rmse": 12.957332750494137,
+        "val_mae": 9.629142407113244,
+        "val_nasa": 8208.07332734349,
+        "heavy_percent": 0.704225352112676,
+        "fusion_percent": 56.402048655569786,
+        "small_percent": 42.89372599231754
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.05,
+        "val_rmse": 13.033954665507526,
+        "val_mae": 9.679646592134093,
+        "val_nasa": 8372.043720132224,
+        "heavy_percent": 2.240717029449424,
+        "fusion_percent": 54.86555697823304,
+        "small_percent": 42.89372599231754
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.1,
+        "val_rmse": 13.134554248535146,
+        "val_mae": 9.728949228108464,
+        "val_nasa": 8759.35058630319,
+        "heavy_percent": 4.7375160051216385,
+        "fusion_percent": 52.36875800256082,
+        "small_percent": 42.89372599231754
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.2,
+        "val_rmse": 13.510323102695894,
+        "val_mae": 9.92710807411985,
+        "val_nasa": 9524.112385344908,
+        "heavy_percent": 16.229193341869397,
+        "fusion_percent": 40.87708066581306,
+        "small_percent": 42.89372599231754
+      }
+    ],
+    "test_tuned": {
+      "rmse": 15.68887839571223,
+      "mae": 10.066533915201823,
+      "nasa": 300.87182989991635,
+      "heavy_percent": 0.0,
+      "fusion_percent": 0.0,
+      "small_percent": 100.0
+    },
+    "test_default": {
+      "rmse": 15.78239541704441,
+      "mae": 10.212182235717773,
+      "nasa": 302.9125965718149,
+      "heavy_percent": 0.0,
+      "fusion_percent": 6.666666666666667,
+      "small_percent": 93.33333333333333
+    }
+  },
+  "seed43": {
+    "best_tau1": 0.15,
+    "best_tau2": 0.0,
+    "best_val_rmse": 14.29620199415234,
+    "tuning_grid": [
+      {
+        "tau1": 0.15,
+        "tau2": 0.0,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.05,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.1,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.2,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.0,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.05,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.1,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.2,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.0,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.05,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.1,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.2,
+        "val_rmse": 14.29620199415234,
+        "val_mae": 10.452238559112354,
+        "val_nasa": 8645.767592163062,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.0,
+        "val_rmse": 14.470401846318952,
+        "val_mae": 10.606933696932433,
+        "val_nasa": 8735.80026631495,
+        "heavy_percent": 0.2560819462227913,
+        "fusion_percent": 11.907810499359796,
+        "small_percent": 87.83610755441741
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.05,
+        "val_rmse": 14.523321997485112,
+        "val_mae": 10.64037083358374,
+        "val_nasa": 8793.423517411587,
+        "heavy_percent": 1.056338028169014,
+        "fusion_percent": 11.107554417413573,
+        "small_percent": 87.83610755441741
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.1,
+        "val_rmse": 14.594586446161488,
+        "val_mae": 10.677827267274356,
+        "val_nasa": 8886.721045705119,
+        "heavy_percent": 2.464788732394366,
+        "fusion_percent": 9.69910371318822,
+        "small_percent": 87.83610755441741
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.2,
+        "val_rmse": 14.784456511872392,
+        "val_mae": 10.77736850523613,
+        "val_nasa": 9158.63391946462,
+        "heavy_percent": 7.010243277848912,
+        "fusion_percent": 5.153649167733675,
+        "small_percent": 87.83610755441741
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.0,
+        "val_rmse": 14.49820503234315,
+        "val_mae": 10.664727390499335,
+        "val_nasa": 8506.195474501632,
+        "heavy_percent": 2.144686299615877,
+        "fusion_percent": 73.71959026888604,
+        "small_percent": 24.13572343149808
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.05,
+        "val_rmse": 14.590369569741764,
+        "val_mae": 10.72438930946184,
+        "val_nasa": 8649.298143800752,
+        "heavy_percent": 6.209987195902689,
+        "fusion_percent": 69.65428937259924,
+        "small_percent": 24.13572343149808
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.1,
+        "val_rmse": 14.722194296149175,
+        "val_mae": 10.807266751874272,
+        "val_nasa": 8812.331187169279,
+        "heavy_percent": 15.364916773367478,
+        "fusion_percent": 60.499359795134446,
+        "small_percent": 24.13572343149808
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.2,
+        "val_rmse": 15.319896528554262,
+        "val_mae": 11.150243633382605,
+        "val_nasa": 9777.141653092955,
+        "heavy_percent": 44.238156209987196,
+        "fusion_percent": 31.626120358514726,
+        "small_percent": 24.13572343149808
+      }
+    ],
+    "test_tuned": {
+      "rmse": 14.858830593980011,
+      "mae": 10.72938092549642,
+      "nasa": 180.61099594959816,
+      "heavy_percent": 0.0,
+      "fusion_percent": 0.0,
+      "small_percent": 100.0
+    },
+    "test_default": {
+      "rmse": 14.875745542167472,
+      "mae": 10.863400840759278,
+      "nasa": 179.7202318148575,
+      "heavy_percent": 0.0,
+      "fusion_percent": 6.666666666666667,
+      "small_percent": 93.33333333333333
+    }
+  },
+  "seed44": {
+    "best_tau1": 0.8,
+    "best_tau2": 0.0,
+    "best_val_rmse": 15.650037855620953,
+    "tuning_grid": [
+      {
+        "tau1": 0.15,
+        "tau2": 0.0,
+        "val_rmse": 16.770680763726443,
+        "val_mae": 11.437432021703977,
+        "val_nasa": 14386.075425269526,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.05,
+        "val_rmse": 16.770680763726443,
+        "val_mae": 11.437432021703977,
+        "val_nasa": 14386.075425269526,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.1,
+        "val_rmse": 16.770680763726443,
+        "val_mae": 11.437432021703977,
+        "val_nasa": 14386.075425269526,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.2,
+        "val_rmse": 16.770680763726443,
+        "val_mae": 11.437432021703977,
+        "val_nasa": 14386.075425269526,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.0,
+        "val_rmse": 16.735103775517306,
+        "val_mae": 11.40877977192936,
+        "val_nasa": 14348.229094807813,
+        "heavy_percent": 0.2880921895006402,
+        "fusion_percent": 0.0,
+        "small_percent": 99.71190781049935
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.05,
+        "val_rmse": 16.735103775517306,
+        "val_mae": 11.40877977192936,
+        "val_nasa": 14348.229094807813,
+        "heavy_percent": 0.2880921895006402,
+        "fusion_percent": 0.0,
+        "small_percent": 99.71190781049935
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.1,
+        "val_rmse": 16.735103775517306,
+        "val_mae": 11.40877977192936,
+        "val_nasa": 14348.229094807813,
+        "heavy_percent": 0.2880921895006402,
+        "fusion_percent": 0.0,
+        "small_percent": 99.71190781049935
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.2,
+        "val_rmse": 16.735103775517306,
+        "val_mae": 11.40877977192936,
+        "val_nasa": 14348.229094807813,
+        "heavy_percent": 0.2880921895006402,
+        "fusion_percent": 0.0,
+        "small_percent": 99.71190781049935
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.0,
+        "val_rmse": 16.52112706022628,
+        "val_mae": 11.160789790135187,
+        "val_nasa": 15177.828744147775,
+        "heavy_percent": 5.185659411011524,
+        "fusion_percent": 0.6402048655569782,
+        "small_percent": 94.1741357234315
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.05,
+        "val_rmse": 16.55010963665715,
+        "val_mae": 11.172505939205234,
+        "val_nasa": 15248.478623388566,
+        "heavy_percent": 5.569782330345711,
+        "fusion_percent": 0.2560819462227913,
+        "small_percent": 94.1741357234315
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.1,
+        "val_rmse": 16.569629911666865,
+        "val_mae": 11.181895887348015,
+        "val_nasa": 15279.513485877349,
+        "heavy_percent": 5.793854033290653,
+        "fusion_percent": 0.03201024327784891,
+        "small_percent": 94.1741357234315
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.2,
+        "val_rmse": 16.57190170743448,
+        "val_mae": 11.183108677784704,
+        "val_nasa": 15282.698133945363,
+        "heavy_percent": 5.825864276568502,
+        "fusion_percent": 0.0,
+        "small_percent": 94.1741357234315
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.0,
+        "val_rmse": 16.229422662605074,
+        "val_mae": 11.16431695581551,
+        "val_nasa": 14405.72325737598,
+        "heavy_percent": 15.524967989756723,
+        "fusion_percent": 28.265044814340587,
+        "small_percent": 56.20998719590269
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.05,
+        "val_rmse": 16.295217302313866,
+        "val_mae": 11.242351967912935,
+        "val_nasa": 14626.098985646515,
+        "heavy_percent": 21.15877080665813,
+        "fusion_percent": 22.63124199743918,
+        "small_percent": 56.20998719590269
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.1,
+        "val_rmse": 16.296693837345018,
+        "val_mae": 11.250473156781263,
+        "val_nasa": 14684.193712002409,
+        "heavy_percent": 27.59282970550576,
+        "fusion_percent": 16.197183098591548,
+        "small_percent": 56.20998719590269
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.2,
+        "val_rmse": 16.42627216857179,
+        "val_mae": 11.318436436402813,
+        "val_nasa": 14808.12665500027,
+        "heavy_percent": 39.500640204865554,
+        "fusion_percent": 4.289372599231754,
+        "small_percent": 56.20998719590269
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.0,
+        "val_rmse": 15.650037855620953,
+        "val_mae": 10.89671449258294,
+        "val_nasa": 12679.16665055212,
+        "heavy_percent": 20.646606914212548,
+        "fusion_percent": 59.60307298335467,
+        "small_percent": 19.750320102432777
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.05,
+        "val_rmse": 15.736628944563734,
+        "val_mae": 11.021291994102175,
+        "val_nasa": 12921.34577344669,
+        "heavy_percent": 31.690140845070424,
+        "fusion_percent": 48.5595390524968,
+        "small_percent": 19.750320102432777
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.1,
+        "val_rmse": 15.741586707847816,
+        "val_mae": 11.06874439994138,
+        "val_nasa": 12953.887873368023,
+        "heavy_percent": 44.71830985915493,
+        "fusion_percent": 35.53137003841229,
+        "small_percent": 19.750320102432777
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.2,
+        "val_rmse": 15.821276485766061,
+        "val_mae": 11.183063557144926,
+        "val_nasa": 12977.406265246414,
+        "heavy_percent": 69.43021766965428,
+        "fusion_percent": 10.819462227912933,
+        "small_percent": 19.750320102432777
+      }
+    ],
+    "test_tuned": {
+      "rmse": 14.647460642602871,
+      "mae": 10.808110968271892,
+      "nasa": 192.75581278510785,
+      "heavy_percent": 36.666666666666664,
+      "fusion_percent": 41.666666666666664,
+      "small_percent": 21.666666666666668
+    },
+    "test_default": {
+      "rmse": 14.764174753633242,
+      "mae": 11.169988441467286,
+      "nasa": 194.899169137899,
+      "heavy_percent": 36.666666666666664,
+      "fusion_percent": 16.666666666666668,
+      "small_percent": 46.666666666666664
+    }
+  },
+  "seed45": {
+    "best_tau1": 0.4,
+    "best_tau2": 0.2,
+    "best_val_rmse": 12.787040414312521,
+    "tuning_grid": [
+      {
+        "tau1": 0.15,
+        "tau2": 0.0,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.05,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.1,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.2,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.0,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.05,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.1,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.2,
+        "val_rmse": 12.811907520062661,
+        "val_mae": 9.325943099399229,
+        "val_nasa": 7790.179779978659,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.0,
+        "val_rmse": 12.794192775900385,
+        "val_mae": 9.311376188231797,
+        "val_nasa": 7767.177439717291,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.5761843790012804,
+        "small_percent": 99.42381562099872
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.05,
+        "val_rmse": 12.794743360391854,
+        "val_mae": 9.313480963322325,
+        "val_nasa": 7767.837168384781,
+        "heavy_percent": 0.09603072983354674,
+        "fusion_percent": 0.4801536491677337,
+        "small_percent": 99.42381562099872
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.1,
+        "val_rmse": 12.793154125938363,
+        "val_mae": 9.308718267384625,
+        "val_nasa": 7765.593598018796,
+        "heavy_percent": 0.3201024327784891,
+        "fusion_percent": 0.2560819462227913,
+        "small_percent": 99.42381562099872
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.2,
+        "val_rmse": 12.787040414312521,
+        "val_mae": 9.299587280283207,
+        "val_nasa": 7758.753328811286,
+        "heavy_percent": 0.5761843790012804,
+        "fusion_percent": 0.0,
+        "small_percent": 99.42381562099872
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.0,
+        "val_rmse": 13.793544266436639,
+        "val_mae": 10.217783658055733,
+        "val_nasa": 8417.487491880132,
+        "heavy_percent": 4.449423815620999,
+        "fusion_percent": 44.43021766965429,
+        "small_percent": 51.120358514724714
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.05,
+        "val_rmse": 14.028334546813495,
+        "val_mae": 10.35939781308632,
+        "val_nasa": 8788.354328814155,
+        "heavy_percent": 12.419974391805377,
+        "fusion_percent": 36.45966709346991,
+        "small_percent": 51.120358514724714
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.1,
+        "val_rmse": 14.372058972975497,
+        "val_mae": 10.54915210684802,
+        "val_nasa": 9362.613651510019,
+        "heavy_percent": 21.47887323943662,
+        "fusion_percent": 27.40076824583867,
+        "small_percent": 51.120358514724714
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.2,
+        "val_rmse": 15.040036185263821,
+        "val_mae": 10.90166236313296,
+        "val_nasa": 10545.780554881276,
+        "heavy_percent": 36.971830985915496,
+        "fusion_percent": 11.907810499359796,
+        "small_percent": 51.120358514724714
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.0,
+        "val_rmse": 13.607219784089784,
+        "val_mae": 10.007993185871237,
+        "val_nasa": 8114.403192196282,
+        "heavy_percent": 8.418693982074263,
+        "fusion_percent": 73.59154929577464,
+        "small_percent": 17.98975672215109
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.05,
+        "val_rmse": 13.848455951612353,
+        "val_mae": 10.165305572343696,
+        "val_nasa": 8464.564646288982,
+        "heavy_percent": 22.37516005121639,
+        "fusion_percent": 59.635083226632524,
+        "small_percent": 17.98975672215109
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.1,
+        "val_rmse": 14.228876816833576,
+        "val_mae": 10.393481863292934,
+        "val_nasa": 9059.877898508059,
+        "heavy_percent": 39.37259923175416,
+        "fusion_percent": 42.63764404609475,
+        "small_percent": 17.98975672215109
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.2,
+        "val_rmse": 15.008140070392649,
+        "val_mae": 10.929380988952598,
+        "val_nasa": 10386.756258332447,
+        "heavy_percent": 68.02176696542894,
+        "fusion_percent": 13.988476312419975,
+        "small_percent": 17.98975672215109
+      }
+    ],
+    "test_tuned": {
+      "rmse": 14.617762462315913,
+      "mae": 10.166290791829427,
+      "nasa": 218.86542729625418,
+      "heavy_percent": 0.0,
+      "fusion_percent": 0.0,
+      "small_percent": 100.0
+    },
+    "test_default": {
+      "rmse": 14.129473214803856,
+      "mae": 10.695880953470866,
+      "nasa": 193.28771600268655,
+      "heavy_percent": 10.0,
+      "fusion_percent": 38.333333333333336,
+      "small_percent": 51.666666666666664
+    }
+  },
+  "seed46": {
+    "best_tau1": 0.15,
+    "best_tau2": 0.0,
+    "best_val_rmse": 12.904117089107528,
+    "tuning_grid": [
+      {
+        "tau1": 0.15,
+        "tau2": 0.0,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.05,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.1,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.15,
+        "tau2": 0.2,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.0,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.05,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.1,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.3,
+        "tau2": 0.2,
+        "val_rmse": 12.904117089107528,
+        "val_mae": 9.256939029571495,
+        "val_nasa": 8423.271638897364,
+        "heavy_percent": 0.0,
+        "fusion_percent": 0.0,
+        "small_percent": 100.0
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.0,
+        "val_rmse": 13.836670029124932,
+        "val_mae": 9.894712942052589,
+        "val_nasa": 9234.253342432516,
+        "heavy_percent": 9.98719590268886,
+        "fusion_percent": 13.764404609475031,
+        "small_percent": 76.24839948783611
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.05,
+        "val_rmse": 14.147977985232302,
+        "val_mae": 10.0894190059276,
+        "val_nasa": 9639.235566648065,
+        "heavy_percent": 16.005121638924457,
+        "fusion_percent": 7.746478873239437,
+        "small_percent": 76.24839948783611
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.1,
+        "val_rmse": 14.351823572966463,
+        "val_mae": 10.210662374117922,
+        "val_nasa": 10042.136373499077,
+        "heavy_percent": 20.6145966709347,
+        "fusion_percent": 3.1370038412291934,
+        "small_percent": 76.24839948783611
+      },
+      {
+        "tau1": 0.4,
+        "tau2": 0.2,
+        "val_rmse": 14.473130122399917,
+        "val_mae": 10.283378477743737,
+        "val_nasa": 10158.469323635707,
+        "heavy_percent": 23.591549295774648,
+        "fusion_percent": 0.16005121638924455,
+        "small_percent": 76.24839948783611
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.0,
+        "val_rmse": 13.610940326536303,
+        "val_mae": 9.696567594623444,
+        "val_nasa": 9008.73166206013,
+        "heavy_percent": 27.176696542893726,
+        "fusion_percent": 35.30729833546735,
+        "small_percent": 37.516005121638926
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.05,
+        "val_rmse": 13.990501732762418,
+        "val_mae": 9.935349605452846,
+        "val_nasa": 9586.781256891023,
+        "heavy_percent": 41.26120358514725,
+        "fusion_percent": 21.222791293213827,
+        "small_percent": 37.516005121638926
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.1,
+        "val_rmse": 14.250959599575708,
+        "val_mae": 10.11540859090534,
+        "val_nasa": 10062.697076835617,
+        "heavy_percent": 53.585147247119075,
+        "fusion_percent": 8.898847631241997,
+        "small_percent": 37.516005121638926
+      },
+      {
+        "tau1": 0.6,
+        "tau2": 0.2,
+        "val_rmse": 14.488704442093642,
+        "val_mae": 10.268275635190566,
+        "val_nasa": 10423.099302332375,
+        "heavy_percent": 61.651728553137005,
+        "fusion_percent": 0.8322663252240717,
+        "small_percent": 37.516005121638926
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.0,
+        "val_rmse": 13.643416330981127,
+        "val_mae": 9.710304286507425,
+        "val_nasa": 9041.838592162136,
+        "heavy_percent": 31.17797695262484,
+        "fusion_percent": 54.993597951344434,
+        "small_percent": 13.82842509603073
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.05,
+        "val_rmse": 14.04104557033815,
+        "val_mae": 9.974392673575466,
+        "val_nasa": 9635.814780346704,
+        "heavy_percent": 49.647887323943664,
+        "fusion_percent": 36.52368758002561,
+        "small_percent": 13.82842509603073
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.1,
+        "val_rmse": 14.328919131112166,
+        "val_mae": 10.202039255222804,
+        "val_nasa": 10144.006368613253,
+        "heavy_percent": 67.50960307298335,
+        "fusion_percent": 18.661971830985916,
+        "small_percent": 13.82842509603073
+      },
+      {
+        "tau1": 0.8,
+        "tau2": 0.2,
+        "val_rmse": 14.6384379865386,
+        "val_mae": 10.452516915398279,
+        "val_nasa": 10602.466040518422,
+        "heavy_percent": 83.86683738796415,
+        "fusion_percent": 2.3047375160051216,
+        "small_percent": 13.82842509603073
+      }
+    ],
+    "test_tuned": {
+      "rmse": 14.686203474162168,
+      "mae": 10.454604530334473,
+      "nasa": 200.60676042261125,
+      "heavy_percent": 0.0,
+      "fusion_percent": 0.0,
+      "small_percent": 100.0
+    },
+    "test_default": {
+      "rmse": 13.729450535357582,
+      "mae": 9.781749121348064,
+      "nasa": 161.55582568184897,
+      "heavy_percent": 51.666666666666664,
+      "fusion_percent": 16.666666666666668,
+      "small_percent": 31.666666666666668
+    }
+  }
+}

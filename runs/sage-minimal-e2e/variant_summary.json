@@ -1,0 +1,58 @@
+{
+  "small_only": {
+    "rmse": 13.77318019189326,
+    "mae": 10.74786605834961,
+    "heavy_calls": 0,
+    "sources": {
+      "small": 20
+    },
+    "n_samples": 20
+  },
+  "heavy_always": {
+    "rmse": 67.72370338367506,
+    "mae": 56.6,
+    "heavy_calls": 20,
+    "sources": {
+      "heavy": 20
+    },
+    "n_samples": 20
+  },
+  "always_average": {
+    "rmse": 37.42603635495556,
+    "mae": 32.930481147766116,
+    "heavy_calls": 20,
+    "sources": {
+      "fusion": 20
+    },
+    "n_samples": 20
+  },
+  "sage_average": {
+    "rmse": 17.747149684758348,
+    "mae": 11.353392028808594,
+    "heavy_calls": 5,
+    "sources": {
+      "small": 15,
+      "heavy": 5
+    },
+    "n_samples": 20
+  },
+  "sage_average_seed42": {
+    "rmse": 13.77318019189326,
+    "mae": 10.74786605834961,
+    "heavy_calls": 0,
+    "sources": {
+      "small": 20
+    },
+    "n_samples": 20
+  },
+  "sage_average_seed44": {
+    "rmse": 60.3160749930859,
+    "mae": 47.07753009796143,
+    "heavy_calls": 18,
+    "sources": {
+      "heavy": 18,
+      "small": 2
+    },
+    "n_samples": 20
+  }
+}

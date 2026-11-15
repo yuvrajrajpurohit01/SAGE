@@ -1,0 +1,70 @@
+{
+  "training_sample_adequacy": {
+    "n_training_examples": 32,
+    "n_distinct_engines": 15,
+    "training_engine_ids": [
+      16,
+      17,
+      31,
+      49,
+      55,
+      56,
+      59,
+      63,
+      68,
+      70,
+      73,
+      75,
+      83,
+      89,
+      99
+    ],
+    "rul_min": 3.0,
+    "rul_max": 125.0,
+    "rul_mean": 72.90625,
+    "rul_capped_count": 11,
+    "rul_low_count": 10,
+    "cycle_min": 56,
+    "cycle_max": 265,
+    "gate_parameters": 1665,
+    "parameters_per_example": 52.03125,
+    "train_q_s_mean": 0.7353091854602098,
+    "train_q_s_std": 0.026466102766734823,
+    "train_q_s_min": 0.7018904089927673,
+    "train_q_s_max": 0.7821444272994995,
+    "train_pearson_q_s_vs_error": -0.4018304042609915,
+    "features_train_mean": -0.05046449974179268,
+    "features_train_std": 0.46989554166793823,
+    "features_val_mean": -0.05334797874093056,
+    "features_val_std": 0.4325750768184662,
+    "membership_train_mean": 0.8193861246109009,
+    "membership_train_std": 0.18126484751701355,
+    "membership_train_frac_gt_099": 0.17216796875,
+    "membership_val_mean": 0.8416222333908081,
+    "membership_val_std": 0.166007861495018,
+    "membership_val_frac_gt_099": 0.17691561299615877
+  },
+  "root_cause_assessment": {
+    "primary_cause": "membership_function_saturation",
+    "evidence": [
+      "mu \u2248 0 (\u00b10.018), variance \u2248 1.0 (\u00b10.009) \u2192 membership = exp(-features\u00b2) \u2248 1 for most features",
+      "Membership mean=0.840, 17.3% > 0.99, 0% < 0.01 \u2192 near-uniform saturation",
+      "head_weight std=0.0145 \u2192 logits std=0.136 over range [0.670, 1.389]",
+      "q_s std=0.026 over range [0.662, 0.800] \u2192 insufficient dynamic range for gating",
+      "Same behavior across all three engine groups (A, B, C) \u2192 not engine-specific",
+      "Same behavior on training-exposed and unexposed engines \u2192 not overfitting to specific engines"
+    ],
+    "contributing_factors": [
+      "Only 32 training examples for 1665 gate parameters (52:1 parameter-to-example ratio)",
+      "No confidence values below 0.675 or above 0.800 observed \u2192 tau1=0.60 never triggers escalation",
+      "ECE \u2248 0.11-0.126 \u2192 systematic overconfidence across all groups"
+    ]
+  },
+  "recommended_next_experiment": {
+    "approach": "retrain_gate_with_larger_confidence_sample",
+    "rationale": "The gate has 1665 parameters but only 32 training examples. The narrow q_s range is a structural consequence of insufficient training signal combined with near-saturated membership activations.",
+    "specific_action": "Retrain the FuzzyDecisionAgent on the full 3,205-window confidence partition (or a substantially larger seeded subset, e.g., 500-1000 examples) while keeping the small model frozen.",
+    "expected_outcome": "Wider q_s distribution with values both below and above tau1=0.60, enabling non-trivial escalation decisions.",
+    "validation": "Re-run the gate-validation experiment on the 3,124 validation windows after retraining."
+  }
+}

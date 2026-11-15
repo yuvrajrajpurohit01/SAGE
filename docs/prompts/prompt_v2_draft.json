@@ -1,0 +1,158 @@
+{
+  "prompt_version": "v2",
+  "prompt_v1_status": "preserved unchanged at sage/heavy/nexus_pipeline.py:72-77 (PROMPTS dict). prompt_v1 is not modified by this draft and remains the active prompt set for any existing cache entries.",
+  "description": "SAGE heavy-path prompts v2 for CMAPSS RUL estimation. Continuous RUL estimation from supplied numerical evidence. 125 is solely the dataset's upper RUL cap; it does not establish engine health and is never a default forecast. Engines are not classified as healthy merely because catastrophic degradation is absent. An isolated deviation alone is insufficient to establish degradation; magnitude, persistence, sensor relationships and temporal context must be evaluated. Pre-computed numerical evidence (z-scores, signed deviations, temporal changes) from sage/context/cmapss_narrative.py is preserved and never re-derived by the LLM. Four-agent architecture and JSON output schemas unchanged.",
+  "source_of_numerical_evidence": {
+    "module": "sage/context/cmapss_narrative.py",
+    "function": "narrate(window, config)",
+    "sensors": [2, 3, 4, 7, 8, 9, 11, 12, 13, 14, 15, 17, 20, 21],
+    "computed_evidence_per_row": "rolling per-sensor z-score relative to prior window (narrative_window=10), signed direction (above/below prior mean), latest cycle-to-cycle change, and a flag naming up to 3 sensors with largest absolute z-scores (threshold narrative_z=2.0); rows t<2 report 'Insufficient prior observations for a rolling deviation estimate.'; rows with no large deviations report 'No large relative sensor deviations in this window.'",
+    "llm_constraint": "The Context Agent must preserve these pre-computed statistics accurately and must never compute rolling statistics from raw sensor matrices or invent numerical values."
+  },
+  "numerical_evidence_data_flow": {
+    "step_1_prepare": "sage/data/datasets.py:prepare_cmapss() (line 114) initializes PreparedData.context as [['']*window for each id] — empty strings stored at build time.",
+    "step_2_compute": "sage/data/datasets.py:PreparedData.inputs(i, narrative) (line 34-37): for FD tracks, context = narrate(self.raw[i], self.config) when narrative=True. self.raw[i] is the [window, 14] numeric matrix; narrate() returns one summary string per row, aligned with values and timestamps.",
+    "step_3_package": "The per-row summary strings become ForecastInputs.context (line 38), packaged into payload = {'history': asdict(inputs), 'guidelines': []} at sage/heavy/nexus_pipeline.py:267.",
+    "step_4_deliver": "payload['history']['context'] is passed to backend.complete(role, payload). ClaudeBackend uses PROMPTS['context']; OpenAICompatBackend overrides the context instruction entirely (see runtime_prompt_construction).",
+    "representative_example": {
+      "row_t_clean": "No large relative sensor deviations in this window.",
+      "row_t_flagged": "Sensor 14 is 2.34 rolling standard deviations above its prior mean; latest change +0.150.",
+      "row_t_early": "Insufficient prior observations for a rolling deviation estimate.",
+      "note": "Each string is one row; the LLM receives the ordered list and must preserve values/timestamps verbatim while reflecting the supplied statistics in the summary field."
+    }
+  },
+  "runtime_prompt_construction": {
+    "overview": "prompt_v2 must replace the old task/instruction text in every place it is constructed at runtime, otherwise the healthy-state assumptions from prompt_v1 remain active and conflict with v2. Three locations must be addressed:",
+    "location_1_datasets_inputs": {
+      "file": "sage/data/datasets.py",
+      "function": "PreparedData.inputs()",
+      "line": 39,
+      "old_text": "Labels are capped at {max_rul:g} cycles (a healthy engine has RUL {max_rul:g}), so the answer lies between 0 and {max_rul:g}; once degradation begins, RUL falls by one per operating cycle. Isolated sensor-deviation flags are common in healthy engines because of measurement noise and are not evidence of imminent failure; an RUL below about 30 cycles requires many sensors to show large, sustained deviations over many consecutive cycles.",
+      "healthy_state_assumption": "Calls 125 'a healthy engine' RUL and treats isolated flags as noise — directly contradicts prompt_v2.",
+      "v2_replacement": "Replace with: '125 is the dataset\u2019s upper RUL cap only; it does not establish engine health. Estimate continuous RUL from the supplied sensor evidence. An isolated deviation alone is insufficient to establish degradation; evaluate magnitude, persistence, sensor relationships and temporal context.'"
+    },
+    "location_2_inference": {
+      "file": "sage/inference.py",
+      "function": "predict_file()",
+      "lines": "45-46",
+      "old_text": "Identical long RUL task string as datasets.py:39, including '(a healthy engine has RUL ...)' and 'Isolated sensor-deviation flags are common in healthy engines...'.",
+      "healthy_state_assumption": "Same healthy-state language as location 1.",
+      "v2_replacement": "Same replacement as location 1."
+    },
+    "location_3_openai_compat_backend": {
+      "file": "sage/heavy/nexus_pipeline.py",
+      "function": "OpenAICompatBackend.complete()",
+      "lines": "150-155",
+      "old_text": "For role == 'context', the method OVERRIDES PROMPTS['context'] entirely with its own instruction: 'Write one concise evidence summary (at most 15 words) for each of the {n} input rows... Return exactly {\"summaries\": [...]}. Do not repeat numeric values or timestamps.'",
+      "conflict_with_v2": "This override (a) uses a different output schema ({\"summaries\": [...]} vs {\"timeline\": [...]}) that fails parse_trace validation for the timeline format, and (b) contains no prompt_v2 healthy-state guardrails. It is active whenever the OpenAICompatBackend is used.",
+      "v2_resolution": "prompt_v2 cannot take effect on the OpenAICompatBackend unless this override is removed or updated to emit the timeline schema and carry the v2 guardrails. Until then, prompt_v2 is guaranteed active only on ClaudeBackend (which uses PROMPTS['context'] unmodified). Document this backend-dependency in every v2 metrics record via backend.identity."
+    },
+    "location_4_claude_backend": {
+      "file": "sage/heavy/nexus_pipeline.py",
+      "function": "ClaudeBackend.complete()",
+      "lines": "89-94",
+      "old_text": "Uses system prompt + PROMPTS[role]. PROMPTS['context'] (line 73) is the v1 context instruction.",
+      "v2_replacement": "PROMPTS['context'] is replaced by prompt_v2's context instruction (preserving timeline schema). No override occurs on ClaudeBackend, so v2 takes effect cleanly."
+    },
+    "no_conflicting_assumptions_remaining": "After the replacements above, no runtime path asserts that 125 is a healthy-engine value, that isolated flags are noise by default, or that an engine is healthy merely because catastrophic degradation is absent."
+  },
+  "schemas": {
+    "context_output": {
+      "type": "object",
+      "required": ["timeline"],
+      "timeline": "array of exactly one object per input row, each {timestamp: str, values: list[float], summary: str}; timestamp and values must match the input verbatim",
+      "validation": "parse_trace at sage/heavy/nexus_pipeline.py:232-242",
+      "note": "OpenAICompatBackend's summaries override (nexus_pipeline.py:150-155) is incompatible with this schema and must be resolved before v2 runs on that backend."
+    },
+    "macro_output": {
+      "type": "object",
+      "required": ["prediction", "reasoning"],
+      "prediction": "list[float], exactly horizon entries, finite, original target units (cycles)",
+      "reasoning": "non-empty string"
+    },
+    "micro_output": {
+      "type": "object",
+      "required": ["prediction", "reasoning", "step_reasoning"],
+      "prediction": "list[float], exactly horizon entries, finite, original target units (cycles)",
+      "reasoning": "non-empty string",
+      "step_reasoning": "list[str], exactly horizon entries, each non-empty"
+    },
+    "synthesis_output": {
+      "type": "object",
+      "required": ["prediction", "reasoning"],
+      "prediction": "list[float], exactly horizon entries, finite, original target units (cycles)",
+      "reasoning": "non-empty string"
+    }
+  },
+  "model_backend_identity": {
+    "note": "Recorded at run time from NexusPipeline.backend.identity. Example values: 'mock-v1-NOT-RESEARCH', 'claude:<model_id>:tokens=8192', 'openai-compat:<model_id>:tokens=<N>:ctx=summaries:extra={...}'. Prompt_v2 results are attributable to the exact backend identity recorded in the checkpoint/metrics.",
+    "prompt_version_in_cache_key": "The NexusPipeline cache key (sage/heavy/nexus_pipeline.py:268-269) hashes the PROMPTS text plus backend identity, so prompt_v2 automatically produces distinct cache entries from prompt_v1; no cross-version cache poisoning. v1 cached results remain valid for v1."
+  },
+  "agents": {
+    "context": {
+      "role": "context",
+      "instruction": "You are the context agent for turbofan engine RUL estimation. You receive one observed history window: for every row, a timestamp, 14 sensor values (sensor_2, sensor_3, sensor_4, sensor_7, sensor_8, sensor_9, sensor_11, sensor_12, sensor_13, sensor_14, sensor_15, sensor_17, sensor_20, sensor_21), and a pre-computed numerical-evidence summary string. Your job is descriptive only: preserve and report what each row shows, without diagnosing failure, predicting RUL, or classifying engine state.\n\nGround rules:\n- Use ONLY the pre-computed numerical-evidence summary supplied for each row. That summary already contains per-sensor z-scores (rolling standard deviations from prior mean), signed direction (above/below), latest cycle-to-cycle change, and up to 3 flagged sensors with largest absolute z-scores.\n- Do NOT compute rolling means, standard deviations, z-scores, or any statistics from the raw sensor matrix yourself.\n- Do NOT invent, round beyond the supplied precision, or fabricate numerical values. Preserve the supplied statistics accurately.\n- Emit exactly one timeline entry per input row, in chronological order, with: timestamp (verbatim from input), values (verbatim copy of the 14 sensor floats), and summary.\n- The summary must faithfully reflect the supplied numerical evidence: cite the flagged sensors, their z-scores and signed direction, and the latest change where available. If a row reports 'No large relative sensor deviations in this window' or 'Insufficient prior observations', preserve that wording.\n- Do not mention RUL, remaining useful life, failure dates, or the 125-cycle cap.\n- Do not infer causal certainty from correlation.\n\nOutput exactly one JSON object {\"timeline\": [...]} with one object per input row, preserving each input timestamp and values verbatim.",
+      "output_schema": {"timeline": [{"timestamp": "str", "values": "list[float]", "summary": "str"}]}
+    },
+    "macro": {
+      "role": "macro",
+      "instruction": "You are the macro agent for turbofan engine RUL estimation. You receive the full observed history (values, timestamps, and the context timeline containing pre-computed numerical evidence) and must assess the broad degradation trend and regime over the forecast horizon. Your output is a continuous RUL estimate (in cycles), not a healthy/unhealthy classification.\n\nGround rules:\n- 125 is solely the dataset\u2019s upper RUL cap. It does not establish engine health, is NOT a default forecast, and is NOT evidence that an engine is healthy.\n- Do not classify an engine as healthy merely because catastrophic degradation is absent.\n- Estimate RUL continuously from the supplied numerical evidence: per-sensor z-scores, signed deviations, latest changes, and the number/duration of flagged sensors across the window.\n- An isolated deviation in a single row is INSUFFICIENT to establish degradation. Evaluate magnitude, persistence across consecutive cycles, sensor relationships (whether multiple sensors deviate together), and temporal context (whether deviations are sustained or transient).\n- Preserve quantitative sensor deviations, z-scores, and temporal trends in your reasoning. Cite specific sensors, cycle ranges, and magnitudes.\n\nReturn one JSON object {\"prediction\": [number], \"reasoning\": \"text\"}. prediction must be a JSON array of exactly horizon finite number(s) in cycles, e.g. [44.0]. reasoning must be a concise, evidence-based justification explaining the trend, the sensors driving it, the persistence/transience of deviations, and why the estimate is not simply the 125 cap.",
+      "output_schema": {"prediction": "list[float] len=horizon", "reasoning": "non-empty str"}
+    },
+    "micro": {
+      "role": "micro",
+      "instruction": "You are the micro agent for turbofan engine RUL estimation. You receive the same observed history (the macro outlook is NOT supplied to you; reason independently from the raw history and context timeline). Forecast each future step from immediate patterns and available catalysts. Output a continuous per-step RUL estimate.\n\nGround rules:\n- 125 is solely the dataset\u2019s upper RUL cap. It does not establish engine health, is not a default forecast or healthy-state assumption.\n- Do not classify an engine as healthy merely because catastrophic degradation is absent.\n- Base each step's estimate on the supplied numerical evidence: current sensor values, per-sensor z-scores versus the rolling prior, cycle-to-cycle changes, and flagged sensors.\n- An isolated deviation alone is insufficient to establish degradation. Evaluate magnitude, persistence across consecutive cycles, sensor relationships (multi-sensor deviation), and temporal context.\n- Preserve quantitative sensor deviations, z-scores, and temporal trends in every step justification. Cite specific sensors and magnitudes.\n\nReturn one JSON object {\"prediction\": [numbers], \"reasoning\": \"text\", \"step_reasoning\": [strings]}. prediction must be a JSON array of exactly horizon finite number(s) in cycles, e.g. [43.5, 43.0]. reasoning is a concise summary. step_reasoning must be an array of exactly horizon non-empty strings, one justification per forecast step, each citing the sensor evidence for that step.",
+      "output_schema": {"prediction": "list[float] len=horizon", "reasoning": "non-empty str", "step_reasoning": "list[str] len=horizon"}
+    },
+    "synthesis": {
+      "role": "synthesis",
+      "instruction": "You are the synthesis agent for turbofan engine RUL estimation. You receive the observed history plus the independent macro and micro outlooks (each with its own continuous RUL prediction and quantitative reasoning). Combine them into a single final continuous RUL estimate.\n\nGround rules:\n- 125 is solely the dataset\u2019s upper RUL cap. It does not establish engine health, is not a default forecast or healthy-state assumption.\n- Do not classify an engine as healthy merely because catastrophic degradation is absent.\n- An isolated deviation alone is insufficient to establish degradation; weigh magnitude, persistence, sensor relationships and temporal context.\n- Weight macro and micro according to the strength and consistency of their quantitative sensor evidence; explain your weighting.\n- Preserve quantitative sensor deviations, z-scores, and temporal trends in your reasoning. Cite specific sensors, magnitudes, and cycle ranges.\n- Express uncertainty explicitly (e.g., disagreement between macro and micro, noisy sensors, short degradation history, transient vs. sustained deviations).\n\nReturn one JSON object {\"prediction\": [numbers], \"reasoning\": \"text\"}. prediction must be a JSON array of exactly horizon finite number(s) in cycles. reasoning must be a concise summary explaining the weighting between macro and micro, the key sensor evidence, the uncertainty, and why the estimate is not simply the 125 cap.",
+      "output_schema": {"prediction": "list[float] len=horizon", "reasoning": "non-empty str"}
+    }
+  },
+  "change_log": {
+    "v1_to_v2": [
+      "Context agent no longer computes rolling statistics from raw sensor matrices; it preserves pre-computed numerical evidence from sage/context/cmapss_narrative.py (z-scores, signed deviations, latest changes) and never invents numerical values.",
+      "Removed the assumption that isolated anomalies are automatically noise. Macro, micro and synthesis now require evaluation of magnitude, persistence, sensor relationships and temporal context; an isolated deviation alone is insufficient to establish degradation.",
+      "Replaced every phrase describing 125 as 'the capped value for a healthy engine' or '(a healthy engine has RUL ...)'. 125 is now solely the dataset\u2019s upper RUL cap in all four agent instructions and in the runtime task strings; it does not establish engine health and is never a default forecast.",
+      "Explicit prohibition on classifying an engine as healthy merely because catastrophic degradation is absent, added to all four agents.",
+      "Documented the complete runtime prompt construction and the OpenAICompatBackend context override conflict (nexus_pipeline.py:150-155) that must be resolved before v2 runs on that backend.",
+      "JSON output schemas, four-agent order (context -> macro -> micro -> synthesis), macro/micro independence, and parse_trace validation are unchanged.",
+      "Prompt text is hashed into the NexusPipeline cache key, so v1 and v2 cache entries are distinct; no cache poisoning."
+    ]
+  },
+  "five_engine_validation_protocol": {
+    "objective": "Paired comparison of prompt_v1 vs prompt_v2 on five CMAPSS FD001 validation engines, using identical interior prediction windows, official test engines completely untouched.",
+    "population": "Engine-disjoint validation partition from data/prepared-fd001 (validation engines only, disjoint from fit, confidence, and test partitions). Window length 50, horizon 1, 14 sensors.",
+    "selection_algorithm": "seed=42; rng.choice over sorted validation engine IDs (size=5, replace=False); per engine select the interior window whose end cycle is the median of that engine's interior windows (interior = end cycle strictly greater than the engine's first window end and strictly less than its last window end); verify each selected window has a meaningful, correctly aligned RUL label (train label = last cycle - cycle, capped at 125); do not select terminal windows that may have RUL zero; identical windows used for prompt_v1 and prompt_v2.",
+    "selected_engines": [
+      {"engine": 9,  "idx": 1397, "end_cycle": 126, "window_length": 50, "rul_label": 75.0,  "n_windows": 152,  "n_interior": 150,  "first_end": 50,  "last_end": 201},
+      {"engine": 36, "idx": 5327, "end_cycle": 104, "window_length": 50, "rul_label": 54.0,  "n_windows": 109,  "n_interior": 107,  "first_end": 50,  "last_end": 158},
+      {"engine": 48, "idx": 7053, "end_cycle": 141, "window_length": 50, "rul_label": 90.0,  "n_windows": 182,  "n_interior": 180,  "first_end": 50,  "last_end": 231},
+      {"engine": 54, "idx": 8037, "end_cycle": 154, "window_length": 50, "rul_label": 103.0, "n_windows": 208,  "n_interior": 206,  "first_end": 50,  "last_end": 257},
+      {"engine": 91, "idx": 14013,"end_cycle": 93,  "window_length": 50, "rul_label": 42.0,  "n_windows": 86,   "n_interior": 84,   "first_end": 50,  "last_end": 135}
+    ],
+    "execution": "Run each selected window through the heavy path once with PROMPTS=v1 and once with PROMPTS=v2 (cache reused where inputs/version match). 5 engines x 2 versions x 4 agents = 40 agent calls maximum.",
+    "measurements": [
+      "RMSE per prompt version",
+      "MAE per prompt version",
+      "NASA Score per prompt version",
+      "Number and percentage of predictions at the 125 cap (per version)",
+      "Input tokens per agent per version",
+      "Output tokens per agent per version",
+      "Latency per version"
+    ],
+    "reporting": "Report actual differences between prompt versions (v2 minus v1) for each metric. Do not force or assert a preferred result; the 125-cap count is an observational metric, not a pass/fail criterion.",
+    "constraints": [
+      "Official test engines completely untouched (split==test, 100 engines, final window each).",
+      "No thresholds or checkpoints modified.",
+      "No training or evaluation experiments run as part of this draft.",
+      "No NVIDIA API calls made as part of this draft."
+    ]
+  },
+  "evaluation_criteria": {
+    "metrics": ["RMSE", "MAE", "NASA Score", "predictions_at_125_cap_count", "predictions_at_125_cap_percent", "input_tokens", "output_tokens", "latency"],
+    "comparison": "Actual measured differences between prompt_v1 and prompt_v2 on the five validation engines.",
+    "forbidden_assertions": ["prompt_v2 must never predict 125 when true RUL < 125", "prompt_v2 must improve RMSE over prompt_v1"]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "experiment": "test_set_exposure_assessment",
+  "source_script": "run_gate_calibration.py",
+  "source_directory": "runs/gate-calibration-diagnostic/",
+  "total_test_windows_in_dataset": 100,
+  "total_test_windows_leaked": 40,
+  "leak_percentage": 40.0,
+  "groups": {
+    "A": {
+      "leaked_count": 15,
+      "windows": [
+        {
+          "engine": 16,
+          "cycle": 113,
+          "rul": 84.0
+        },
+        {
+          "engine": 17,
+          "cycle": 165,
+          "rul": 50.0
+        },
+        {
+          "engine": 31,
+          "cycle": 196,
+          "rul": 8.0
+        },
+        {
+          "engine": 49,
+          "cycle": 303,
+          "rul": 21.0
+        },
+        {
+          "engine": 55,
+          "cycle": 113,
+          "rul": 125.0
+        },
+        {
+          "engine": 56,
+          "cycle": 136,
+          "rul": 15.0
+        },
+        {
+          "engine": 59,
+          "cycle": 94,
+          "rul": 114.0
+        },
+        {
+          "engine": 63,
+          "cycle": 155,
+          "rul": 72.0
+        },
+        {
+          "engine": 68,
+          "cycle": 187,
+          "rul": 8.0
+        },
+        {
+          "engine": 70,
+          "cycle": 152,
+          "rul": 94.0
+        },
+        {
+          "engine": 73,
+          "cycle": 112,
+          "rul": 125.0
+        },
+        {
+          "engine": 75,
+          "cycle": 88,
+          "rul": 113.0
+        },
+        {
+          "engine": 83,
+          "cycle": 73,
+          "rul": 125.0
+        },
+        {
+          "engine": 89,
+          "cycle": 177,
+          "rul": 125.0
+        },
+        {
+          "engine": 99,
+          "cycle": 97,
+          "rul": 117.0
+        }
+      ]
+    },
+    "B": {
+      "leaked_count": 5,
+      "windows": [
+        {
+          "engine": 10,
+          "cycle": 192,
+          "rul": 96.0
+        },
+        {
+          "engine": 32,
+          "cycle": 145,
+          "rul": 48.0
+        },
+        {
+          "engine": 35,
+          "cycle": 198,
+          "rul": 11.0
+        },
+        {
+          "engine": 45,
+          "cycle": 152,
+          "rul": 114.0
+        },
+        {
+          "engine": 61,
+          "cycle": 159,
+          "rul": 21.0
+        }
+      ]
+    },
+    "C": {
+      "leaked_count": 20,
+      "windows": [
+        {
+          "engine": 7,
+          "cycle": 160,
+          "rul": 91.0
+        },
+        {
+          "engine": 9,
+          "cycle": 55,
+          "rul": 111.0
+        },
+        {
+          "engine": 12,
+          "cycle": 217,
+          "rul": 124.0
+        },
+        {
+          "engine": 13,
+          "cycle": 195,
+          "rul": 95.0
+        },
+        {
+          "engine": 14,
+          "cycle": 46,
+          "rul": 107.0
+        },
+        {
+          "engine": 15,
+          "cycle": 76,
+          "rul": 83.0
+        },
+        {
+          "engine": 20,
+          "cycle": 184,
+          "rul": 16.0
+        },
+        {
+          "engine": 23,
+          "cycle": 130,
+          "rul": 113.0
+        },
+        {
+          "engine": 36,
+          "cycle": 126,
+          "rul": 19.0
+        },
+        {
+          "engine": 37,
+          "cycle": 121,
+          "rul": 21.0
+        },
+        {
+          "engine": 42,
+          "cycle": 156,
+          "rul": 10.0
+        },
+        {
+          "engine": 48,
+          "cycle": 78,
+          "rul": 92.0
+        },
+        {
+          "engine": 50,
+          "cycle": 74,
+          "rul": 79.0
+        },
+        {
+          "engine": 54,
+          "cycle": 121,
+          "rul": 97.0
+        },
+        {
+          "engine": 65,
+          "cycle": 71,
+          "rul": 125.0
+        },
+        {
+          "engine": 66,
+          "cycle": 147,
+          "rul": 14.0
+        },
+        {
+          "engine": 67,
+          "cycle": 71,
+          "rul": 77.0
+        },
+        {
+          "engine": 78,
+          "cycle": 72,
+          "rul": 107.0
+        },
+        {
+          "engine": 86,
+          "cycle": 110,
+          "rul": 89.0
+        },
+        {
+          "engine": 91,
+          "cycle": 234,
+          "rul": 38.0
+        }
+      ]
+    }
+  },
+  "impact": {
+    "test_features_processed": true,
+    "test_rul_labels_read": true,
+    "test_rows_contributed_to_metrics": [
+      "absolute_error_distribution",
+      "realised_confidence_target_distribution",
+      "pearson_correlation_q_s_vs_abs_error",
+      "spearman_correlation_q_s_vs_abs_error",
+      "expected_calibration_error",
+      "coverage_at_tau1_values",
+      "per_engine_rmse_and_mae"
+    ],
+    "test_set_still_independent": false,
+    "disclosure_required": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "downloaded_at_utc": "2026-09-10T06:39:50.924389+00:00",
+  "source": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&outputsize=full",
+  "demo_request": true,
+  "symbol": "IBM",
+  "rows": 1508,
+  "start": "2020-01-02T23:59:59Z",
+  "end": "2025-12-31T23:59:59Z",
+  "prices": "Provider daily OHLCV; not dividend-adjusted total returns",
+  "timestamp_semantics": "End-of-day UTC marker, not exact exchange close/publication timestamp",
+  "text_context": "none",
+  "provider_response_sha256": "f939f0861681417d7f22d4831e069059d8595ae93f8799f60c34788e7b4bfa5c",
+  "api_key_stored": false,
+  "sha256": {
+    "stock.csv": "728941e66796a32fce7271d90f995c21684c07ef7fdddd72788ec7e30e2594a7"
+  }
+}

@@ -1,0 +1,252 @@
+[
+  {
+    "stage": "small",
+    "epoch": 1,
+    "scaled_mse": 0.2804727007097216
+  },
+  {
+    "stage": "small",
+    "epoch": 2,
+    "scaled_mse": 0.20034507852099367
+  },
+  {
+    "stage": "small",
+    "epoch": 3,
+    "scaled_mse": 0.16667139851264537
+  },
+  {
+    "stage": "small",
+    "epoch": 4,
+    "scaled_mse": 0.10380190394922152
+  },
+  {
+    "stage": "small",
+    "epoch": 5,
+    "scaled_mse": 0.06910476979253895
+  },
+  {
+    "stage": "small",
+    "epoch": 6,
+    "scaled_mse": 0.05970502325046406
+  },
+  {
+    "stage": "small",
+    "epoch": 7,
+    "scaled_mse": 0.05208259243498235
+  },
+  {
+    "stage": "small",
+    "epoch": 8,
+    "scaled_mse": 0.044542564816669565
+  },
+  {
+    "stage": "small",
+    "epoch": 9,
+    "scaled_mse": 0.037953955677746454
+  },
+  {
+    "stage": "small",
+    "epoch": 10,
+    "scaled_mse": 0.03392541547213446
+  },
+  {
+    "stage": "small",
+    "epoch": 11,
+    "scaled_mse": 0.027835667582592562
+  },
+  {
+    "stage": "small",
+    "epoch": 12,
+    "scaled_mse": 0.02515447188562365
+  },
+  {
+    "stage": "small",
+    "epoch": 13,
+    "scaled_mse": 0.021057887082341006
+  },
+  {
+    "stage": "small",
+    "epoch": 14,
+    "scaled_mse": 0.018829225270294264
+  },
+  {
+    "stage": "small",
+    "epoch": 15,
+    "scaled_mse": 0.015677462477264818
+  },
+  {
+    "stage": "small",
+    "epoch": 16,
+    "scaled_mse": 0.01611423507380511
+  },
+  {
+    "stage": "small",
+    "epoch": 17,
+    "scaled_mse": 0.014504076281449138
+  },
+  {
+    "stage": "small",
+    "epoch": 18,
+    "scaled_mse": 0.013301034369918427
+  },
+  {
+    "stage": "small",
+    "epoch": 19,
+    "scaled_mse": 0.011814118308694029
+  },
+  {
+    "stage": "small",
+    "epoch": 20,
+    "scaled_mse": 0.009962901469367768
+  },
+  {
+    "stage": "confidence",
+    "epoch": 1,
+    "joint_mse": 0.30348846316337585
+  },
+  {
+    "stage": "confidence",
+    "epoch": 2,
+    "joint_mse": 0.24109213054180145
+  },
+  {
+    "stage": "confidence",
+    "epoch": 3,
+    "joint_mse": 0.2518959641456604
+  },
+  {
+    "stage": "confidence",
+    "epoch": 4,
+    "joint_mse": 0.2560884356498718
+  },
+  {
+    "stage": "confidence",
+    "epoch": 5,
+    "joint_mse": 0.2549338638782501
+  },
+  {
+    "stage": "confidence",
+    "epoch": 6,
+    "joint_mse": 0.2509355843067169
+  },
+  {
+    "stage": "confidence",
+    "epoch": 7,
+    "joint_mse": 0.24501162767410278
+  },
+  {
+    "stage": "confidence",
+    "epoch": 8,
+    "joint_mse": 0.2372702956199646
+  },
+  {
+    "stage": "confidence",
+    "epoch": 9,
+    "joint_mse": 0.22738705575466156
+  },
+  {
+    "stage": "confidence",
+    "epoch": 10,
+    "joint_mse": 0.21502986550331116
+  },
+  {
+    "stage": "confidence",
+    "epoch": 11,
+    "joint_mse": 0.20121663808822632
+  },
+  {
+    "stage": "confidence",
+    "epoch": 12,
+    "joint_mse": 0.19144028425216675
+  },
+  {
+    "stage": "confidence",
+    "epoch": 13,
+    "joint_mse": 0.19429481029510498
+  },
+  {
+    "stage": "confidence",
+    "epoch": 14,
+    "joint_mse": 0.20111501216888428
+  },
+  {
+    "stage": "confidence",
+    "epoch": 15,
+    "joint_mse": 0.19424471259117126
+  },
+  {
+    "stage": "confidence",
+    "epoch": 16,
+    "joint_mse": 0.18187186121940613
+  },
+  {
+    "stage": "confidence",
+    "epoch": 17,
+    "joint_mse": 0.1764700710773468
+  },
+  {
+    "stage": "confidence",
+    "epoch": 18,
+    "joint_mse": 0.17722058296203613
+  },
+  {
+    "stage": "confidence",
+    "epoch": 19,
+    "joint_mse": 0.17880558967590332
+  },
+  {
+    "stage": "confidence",
+    "epoch": 20,
+    "joint_mse": 0.17856204509735107
+  },
+  {
+    "stage": "confidence",
+    "epoch": 21,
+    "joint_mse": 0.17594802379608154
+  },
+  {
+    "stage": "confidence",
+    "epoch": 22,
+    "joint_mse": 0.17140211164951324
+  },
+  {
+    "stage": "confidence",
+    "epoch": 23,
+    "joint_mse": 0.1663033664226532
+  },
+  {
+    "stage": "confidence",
+    "epoch": 24,
+    "joint_mse": 0.16310825943946838
+  },
+  {
+    "stage": "confidence",
+    "epoch": 25,
+    "joint_mse": 0.1635877937078476
+  },
+  {
+    "stage": "confidence",
+    "epoch": 26,
+    "joint_mse": 0.16525787115097046
+  },
+  {
+    "stage": "confidence",
+    "epoch": 27,
+    "joint_mse": 0.16374681890010834
+  },
+  {
+    "stage": "confidence",
+    "epoch": 28,
+    "joint_mse": 0.15984582901000977
+  },
+  {
+    "stage": "confidence",
+    "epoch": 29,
+    "joint_mse": 0.15739160776138306
+  },
+  {
+    "stage": "confidence",
+    "epoch": 30,
+    "joint_mse": 0.15732240676879883
+  }
+]

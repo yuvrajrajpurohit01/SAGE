@@ -1,0 +1,9 @@
+{
+  "api_calls": 1,
+  "cache_hits": 19,
+  "total_input_tokens": 4038960,
+  "total_output_tokens": 85238,
+  "total_latency": 1185.9867480001412,
+  "total_agent_calls_planned": 80,
+  "api_calls_actual": 1
+}

@@ -1,0 +1,97 @@
+{
+  "engine": 91,
+  "idx": 14013,
+  "end_cycle": 93,
+  "window_length": 50,
+  "ground_truth_rul": 42.0,
+  "results": {
+    "v1": {
+      "prompt_version": "v1",
+      "context": {
+        "timeline_len": 50,
+        "prediction": [],
+        "reasoning": "",
+        "input_tokens": 15200,
+        "output_tokens": 1357
+      },
+      "macro": {
+        "prediction": [
+          125.0
+        ],
+        "reasoning": "The engine is at cycle 93 with 50 cycles of sensor history. Throughout this period, sensor readings show only isolated, transient deviations typical of measurement noise in healthy engines. No sensors exhibit large, sustained deviations over many consecutive cycles, which would be required to indica",
+        "input_tokens": 29005,
+        "output_tokens": 125
+      },
+      "micro": {
+        "prediction": [
+          125.0
+        ],
+        "reasoning": "The engine is at cycle 93 with only isolated, transient sensor deviations typical of measurement noise. No sustained multi-sensor degradation pattern is present, so the engine remains healthy with maximum RUL of 125 cycles.",
+        "step_reasoning": [
+          "At cycle 93, sensor readings show only isolated deviations (sensors 9 and 12) without the sustained, multi-sensor deterioration required for RUL below 125. The engine exhibits healthy behavior with RUL capped at 125 cycles."
+        ],
+        "input_tokens": 29045,
+        "output_tokens": 127
+      },
+      "synthesis": {
+        "prediction": [
+          125.0
+        ],
+        "reasoning": "Both macro and micro forecasts agree on 125 cycles. The engine is at cycle 93 with 50 cycles of history showing only isolated, transient sensor deviations typical of measurement noise in healthy engines. No sensors exhibit large, sustained deviations over many consecutive cycles, which would be requ",
+        "input_tokens": 29330,
+        "output_tokens": 133
+      },
+      "y_l": [
+        125.0
+      ],
+      "backend": "openai-compat:nvidia/nemotron-3-ultra-550b-a55b:tokens=8192:ctx=summaries:extra={\"chat_template_kwargs\": {\"enable_thinking\": false}}",
+      "elapsed_seconds": 46.06830509996507,
+      "cache_hit": false,
+      "error": null
+    },
+    "v2": {
+      "prompt_version": "v2",
+      "context": {
+        "timeline_len": 50,
+        "prediction": [],
+        "reasoning": "",
+        "input_tokens": 15425,
+        "output_tokens": 15189
+      },
+      "macro": {
+        "prediction": [
+          105.0
+        ],
+        "reasoning": "The engine at cycle-93 shows no sustained, multi-sensor degradation trend. Deviations are transient and isolated: sensor 7 spiked to -5.18\u03c3 at cycle-92 but returned to normal; sensor 14 oscillates between \u00b12.4\u20132.9\u03c3 without persistence; sensor 3 shows occasional +2.6 to +4.1\u03c3 excursions (cycles 52, 5",
+        "input_tokens": 30526,
+        "output_tokens": 244
+      },
+      "micro": {
+        "prediction": [
+          102.3
+        ],
+        "reasoning": "Engine at cycle-93 shows no persistent multi-sensor degradation trend. Recent deviations (sensor 7: -5.18\u03c3, sensor 14: \u00b12.4-2.8\u03c3, sensor 9: \u00b12.1-2.3\u03c3) are isolated, alternating in direction, and lack sustained co-movement. Core sensors (2, 3, 4, 8, 11, 12, 13, 15, 17, 20, 21) remain within \u00b13\u03c3 with ",
+        "step_reasoning": [
+          "At cycle-93 (final observed), sensor 9 is +2.30\u03c3 (change +4.22) and sensor 12 is -2.14\u03c3 (change -0.18), but these are single-cycle excursions without persistence. Sensor 7 showed -5.18\u03c3 at cycle-92 but recovered; sensor 14 oscillates (\u00b12.4-2.8\u03c3) without trend. Sensor 3 spiked +4.11\u03c3 at cycle-85 but normalized. No sensor shows sustained deviation >3\u03c3 over consecutive cycles. All core gas-path temperatures (sensors 3,4,7,8,11,12,13) and pressures (2,14,15,17,20,21) remain stable. RUL estimated at 102.3 cycles, reflecting early degradation stage with high remaining life."
+        ],
+        "input_tokens": 30503,
+        "output_tokens": 371
+      },
+      "synthesis": {
+        "prediction": [
+          103.7
+        ],
+        "reasoning": "Both macro (105.0) and micro (102.3) outlooks agree the engine shows no sustained, multi-sensor degradation through cycle-93. Deviations are transient and alternating: sensor 7 spiked to -5.18\u03c3 at cycle-92 but recovered; sensor 14 oscillates \u00b12.4\u20132.9\u03c3 without persistence; sensor 3 has occasional +2.",
+        "input_tokens": 31273,
+        "output_tokens": 357
+      },
+      "y_l": [
+        103.7
+      ],
+      "backend": "openai-compat:nvidia/nemotron-3-ultra-550b-a55b:tokens=32768:ctx=summaries:extra={\"chat_template_kwargs\": {\"enable_thinking\": false}}",
+      "elapsed_seconds": 266.6837355000898,
+      "cache_hit": false,
+      "error": null
+    }
+  }
+}

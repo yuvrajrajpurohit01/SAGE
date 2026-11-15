@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - given-names: Yuvraj
+    family-names: Rajpurohit
+title: "SAGE: Selective Agentic Gating with Evaluation for Remaining Useful Life Prediction"
+version: 1.0.0
+date-released: 2026-11-15
+url: "https://github.com/your-username/sage"
+repository-code: "https://github.com/your-username/sage"
+keywords:
+  - remaining-useful-life
+  - selective-prediction
+  - agentic-forecasting
+  - fuzzy-gating
+  - confidence-estimation
+  - CMAPSS
+identifiers:
+  - type: doi
+    value: "TODO"
+license: TODO
+abstract: >
+  SAGE implements a selective agentic gating framework for turbofan engine
+  Remaining Useful Life (RUL) prediction on NASA CMAPSS FD001. The framework
+  combines a lightweight Conv1D-GRU forecaster, a fuzzy D1 confidence gate, a
+  numerical Patch Transformer heavy path, and a trained D2 independent verifier
+  with confidence-gap decision/fusion. The principal finding is negative:
+  selective routing does not improve accuracy because the gate estimates
+  small-model error, not the benefit of escalation.

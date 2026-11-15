@@ -1,0 +1,137 @@
+{
+  "track": "stock",
+  "split": "test",
+  "samples": 12,
+  "synthetic": true,
+  "backend": "mock-v1-NOT-RESEARCH",
+  "config": {
+    "track": "stock",
+    "window": 12,
+    "features": 2,
+    "horizon": 3,
+    "hidden": 8,
+    "tau1": 0.6,
+    "tau2": 0.05,
+    "alpha": 10.0,
+    "fusion": "average",
+    "encoder": "hash-demo",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "embedding_revision": null,
+    "embedding_dim": 32,
+    "seed": 42,
+    "learning_rate": 0.001,
+    "max_rul": 125.0,
+    "narrative_window": 10,
+    "narrative_z": 2.0,
+    "max_tokens": 8192,
+    "timeout": 120.0,
+    "retries": 2
+  },
+  "status": "SMOKE TEST ONLY",
+  "narrative": true,
+  "variants": {
+    "small_only": {
+      "rmse": 2.821064091963741,
+      "mae": 2.4004203176332846,
+      "mape_percent_nonzero_targets": 160.9479230642034,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 100.0,
+      "heavy_final_percent": 0.0,
+      "fusion_percent": 0.0,
+      "heavy_invocation_percent": 0.0,
+      "logical_agent_calls": 0,
+      "cache_hits": 0,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.023303429999259606
+    },
+    "heavy_always": {
+      "rmse": 0.5258918033151174,
+      "mae": 0.37469538384013706,
+      "mape_percent_nonzero_targets": 32.24028548895962,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 0.0,
+      "heavy_final_percent": 100.0,
+      "fusion_percent": 0.0,
+      "heavy_invocation_percent": 100.0,
+      "logical_agent_calls": 48,
+      "cache_hits": 0,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.02296673300020302
+    },
+    "gate_only": {
+      "rmse": 0.5258918033151174,
+      "mae": 0.37469538384013706,
+      "mape_percent_nonzero_targets": 32.24028548895962,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 0.0,
+      "heavy_final_percent": 100.0,
+      "fusion_percent": 0.0,
+      "heavy_invocation_percent": 100.0,
+      "logical_agent_calls": 48,
+      "cache_hits": 12,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.02218435000008867
+    },
+    "sage": {
+      "rmse": 1.343880450624587,
+      "mae": 0.9961091502466135,
+      "mape_percent_nonzero_targets": 54.29577838648507,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 0.0,
+      "heavy_final_percent": 33.333333333333336,
+      "fusion_percent": 66.66666666666667,
+      "heavy_invocation_percent": 100.0,
+      "logical_agent_calls": 48,
+      "cache_hits": 12,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.016371674000538405
+    },
+    "sage_average": {
+      "rmse": 1.343880450624587,
+      "mae": 0.9961091502466135,
+      "mape_percent_nonzero_targets": 54.29577838648507,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 0.0,
+      "heavy_final_percent": 33.333333333333336,
+      "fusion_percent": 66.66666666666667,
+      "heavy_invocation_percent": 100.0,
+      "logical_agent_calls": 48,
+      "cache_hits": 12,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.05415312800050742
+    },
+    "sage_weighted": {
+      "rmse": 1.4161327979603966,
+      "mae": 1.0456326589883405,
+      "mape_percent_nonzero_targets": 55.88708250243349,
+      "mape_excluded_near_zero": 0,
+      "small_percent": 0.0,
+      "heavy_final_percent": 33.333333333333336,
+      "fusion_percent": 66.66666666666667,
+      "heavy_invocation_percent": 100.0,
+      "logical_agent_calls": 48,
+      "cache_hits": 12,
+      "logical_tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "measured_seconds_including_cache": 0.01000593799994931
+    }
+  },
+  "timing_note": "Replay/cache timings are not an end-to-end speedup measurement; heavy_always includes small/gate diagnostic overhead. Tokens are logical totals including cached outputs."
+}

@@ -1,0 +1,161 @@
+import argparse
+from dataclasses import replace
+import json
+import os
+from pathlib import Path
+from sage.config import Config
+from sage.trace import TRACE
+from sage.data.datasets import PreparedData, prepare_cmapss, prepare_csv, synthetic
+from sage.heavy.nexus_pipeline import ClaudeBackend, MockBackend, NexusPipeline, OpenAICompatBackend
+from train.training import train, load_pipeline
+from eval.benchmark import benchmark
+
+
+def backend(name: str, config: Config, cache: Path, prompt_version: str = "v1") -> NexusPipeline:
+    if name == "mock":
+        engine = MockBackend()
+    else:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except ImportError:
+            pass
+        if name == "openai":
+            engine = OpenAICompatBackend(os.getenv("SAGE_LLM_MODEL", ""), os.getenv("SAGE_LLM_BASE_URL", ""),
+                                         os.getenv("SAGE_LLM_API_KEY", ""), config)
+        else:
+            engine = ClaudeBackend(os.getenv("SAGE_LLM_MODEL", ""), config)
+    return NexusPipeline(engine, cache, prompt_version=prompt_version, max_rul=config.max_rul)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="SAGE: gate, reason, self-verify")
+    sub = parser.add_subparsers(dest="command", required=True)
+    demo = sub.add_parser("demo", help="Offline synthetic wiring test; no API calls")
+    demo.add_argument("--track", choices=["FD001", "FD003", "weather", "stock", "ett"], default="FD001")
+    demo.add_argument("--output", default="runs/demo")
+    demo.add_argument("--prompt-version", choices=["v1", "v2"], default="v1",
+                      help="Prompt version for the heavy-path agents (default: v1)")
+    prep = sub.add_parser("prepare", help="Prepare real data using leakage-aware splits")
+    prep.add_argument("--track", required=True, choices=["FD001", "FD003", "weather", "stock", "ett"])
+    prep.add_argument("--source", required=True)
+    prep.add_argument("--output", required=True)
+    prep.add_argument("--target")
+    prep.add_argument("--features", help="Comma-separated numeric columns; include the target")
+    prep.add_argument("--window", type=int, default=50)
+    prep.add_argument("--horizon", type=int, default=1)
+    prep.add_argument("--alpha", type=float)
+    prep.add_argument("--seed", type=int, default=42)
+    fit = sub.add_parser("train")
+    fit.add_argument("--data", required=True)
+    fit.add_argument("--output", required=True)
+    fit.add_argument("--backend", required=True, choices=["mock", "claude", "openai"])
+    fit.add_argument("-v", "--verbose", action="store_true", help="Show every pipeline stage step by step")
+    fit.add_argument("--epochs", type=int, default=20)
+    fit.add_argument("--confidence-epochs", type=int, default=30)
+    fit.add_argument("--confidence-limit", type=int, help="Optional seeded subset of confidence partition; recorded in checkpoint")
+    fit.add_argument("--no-narrative", action="store_true")
+    fit.add_argument("--embedding-revision", help="Pin a Hugging Face model commit for reproducibility")
+    fit.add_argument("--prompt-version", choices=["v1", "v2"], default="v1",
+                     help="Prompt version for the heavy-path agents (default: v1)")
+    evaluation = sub.add_parser("evaluate")
+    evaluation.add_argument("--data", required=True)
+    evaluation.add_argument("--checkpoint", required=True)
+    evaluation.add_argument("--output", required=True)
+    evaluation.add_argument("--backend", required=True, choices=["mock", "claude", "openai"])
+    evaluation.add_argument("-v", "--verbose", action="store_true", help="Show every pipeline stage step by step")
+    evaluation.add_argument("--limit", type=int)
+    evaluation.add_argument("--split", choices=["validation", "test"], default="test")
+    evaluation.add_argument("--ablations", action="store_true")
+    evaluation.add_argument("--prompt-version", choices=["v1", "v2"], default="v1",
+                            help="Prompt version for the heavy-path agents (default: v1)")
+    prediction = sub.add_parser("predict", help="Forecast a new history JSON without labels")
+    prediction.add_argument("--checkpoint", required=True)
+    prediction.add_argument("--history", required=True)
+    prediction.add_argument("--backend", required=True, choices=["mock", "claude", "openai"])
+    prediction.add_argument("-v", "--verbose", action="store_true", help="Show every pipeline stage step by step")
+    prediction.add_argument("--output", required=True)
+    prediction.add_argument("--prompt-version", choices=["v1", "v2"], default="v1",
+                            help="Prompt version for the heavy-path agents (default: v1)")
+    tuning = sub.add_parser("tune", help="Select thresholds using validation only")
+    tuning.add_argument("--data", required=True)
+    tuning.add_argument("--checkpoint", required=True)
+    tuning.add_argument("--backend", required=True, choices=["mock", "claude", "openai"])
+    tuning.add_argument("-v", "--verbose", action="store_true", help="Show every pipeline stage step by step")
+    tuning.add_argument("--output", required=True)
+    tuning.add_argument("--tau1", default="0.15,0.3,0.4,0.6,0.8")
+    tuning.add_argument("--tau2", default="0,0.05,0.1,0.2")
+    tuning.add_argument("--limit", type=int)
+    tuning.add_argument("--prompt-version", choices=["v1", "v2"], default="v1",
+                        help="Prompt version for the heavy-path agents (default: v1)")
+    args = parser.parse_args()
+    TRACE.enabled = bool(getattr(args, "verbose", False))
+    if args.command == "demo":
+        config = Config.for_track(args.track, window=12, features=14 if args.track.startswith("FD") else 2,
+                                  hidden=8, embedding_dim=32, horizon=1 if args.track.startswith("FD") else 3,
+                                  prompt_version=args.prompt_version)
+        data = synthetic(config)
+        output = Path(args.output)
+        data.save(output / "prepared")
+        heavy = backend("mock", config, output / "cache", prompt_version=args.prompt_version)
+        training = train(data, heavy, output, epochs=2, confidence_epochs=3)
+        pipeline, ckpt = load_pipeline(output / "sage.pt", data, heavy)
+        results = benchmark(pipeline, data, output / "evaluation", ablations=True)
+        print(json.dumps({"training": training, "status": results["status"], "metrics_file": str(output / "evaluation" / "metrics.json")}, indent=2))
+    elif args.command == "prepare":
+        features = args.features.split(",") if args.features else []
+        config = Config.for_track(args.track, window=args.window, horizon=args.horizon, seed=args.seed,
+            features=14 if args.track.startswith("FD") else len(features))
+        if args.alpha is not None:
+            config = replace(config, alpha=args.alpha)
+        if args.track.startswith("FD"):
+            data = prepare_cmapss(args.source, config)
+        else:
+            if not args.target or not features:
+                parser.error("CSV tracks require --target and --features")
+            data = prepare_csv(args.source, config, args.target, features)
+        data.save(args.output)
+        print(json.dumps({"output": args.output, "splits": {s: len(data.indices(s)) for s in ["fit", "confidence", "validation", "test"]}}, indent=2))
+    elif args.command == "train":
+        data = PreparedData.load(args.data)
+        if args.backend in ("claude", "openai"):
+            data.config = replace(data.config, encoder="sentence-transformer", embedding_dim=384,
+                                  embedding_revision=args.embedding_revision)
+        data.config = replace(data.config, prompt_version=args.prompt_version)
+        heavy = backend(args.backend, data.config, Path(args.output) / "cache",
+                        prompt_version=args.prompt_version)
+        print(json.dumps(train(data, heavy, args.output, args.epochs, args.confidence_epochs,
+                               confidence_limit=args.confidence_limit, narrative=not args.no_narrative), indent=2))
+    elif args.command == "predict":
+        import torch
+        from sage.inference import predict_file
+        ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
+        config = Config(**ckpt["config"])
+        config = replace(config, prompt_version=args.prompt_version)
+        heavy = backend(args.backend, config, Path(args.checkpoint).parent / "cache",
+                        prompt_version=args.prompt_version)
+        result = predict_file(args.checkpoint, args.history, heavy)
+        destination = Path(args.output)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(result, indent=2, allow_nan=False), encoding="utf-8")
+        print(json.dumps({"source": result["source"], "prediction": result["prediction"], "output": args.output}, indent=2))
+    else:
+        import torch
+        data = PreparedData.load(args.data)
+        ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
+        config = Config(**ckpt["config"])
+        config = replace(config, prompt_version=args.prompt_version)
+        heavy = backend(args.backend, config, Path(args.checkpoint).parent / "cache",
+                        prompt_version=args.prompt_version)
+        pipeline, ckpt = load_pipeline(args.checkpoint, data, heavy)
+        if args.command == "tune":
+            from eval.tune import tune
+            print(json.dumps(tune(pipeline, data, ckpt, args.output,
+                [float(v) for v in args.tau1.split(",")], [float(v) for v in args.tau2.split(",")], args.limit), indent=2))
+            return
+        results = benchmark(pipeline, data, args.output, args.limit, narrative=ckpt["narrative"],
+                            split=args.split, ablations=args.ablations)
+        print(json.dumps(results, indent=2))
+
+if __name__ == "__main__":
+    main()
