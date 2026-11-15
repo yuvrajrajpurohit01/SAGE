@@ -41,7 +41,6 @@ SAGE/
 │   └── training.py                    # Progressive training (fit → confidence → gate)
 ├── eval/
 │   ├── benchmark.py                   # Benchmark evaluation
-│   ├── day1.py                        # Day-1 pipeline (train-base + evaluate)
 │   └── tune.py                        # Threshold tuning
 ├── tests/                             # 37 software tests
 ├── data/                              # Datasets (CMAPSS, prepared)
@@ -65,7 +64,6 @@ SAGE/
 ├── verify_metrics.py                  # Metrics verification
 ├── generate_docx.py                   # DOCX generator
 ├── generate_pdf.py                    # PDF generator
-├── main.py                            # CLI entry point
 ├── pyproject.toml                     # Project configuration
 ├── requirements.txt                   # Python dependencies
 ├── README.md                          # This file
@@ -86,7 +84,7 @@ All experiments use a numerical heavy path — **no API calls required**.
 
 ```bash
 # 1. Prepare data
-python main.py prepare --track FD001 --source data/CMAPSS --output data/prepared-fd001
+python -m sage.cli prepare --track FD001 --source data/CMAPSS --output data/prepared-fd001
 
 # 2. Train all components (5 seeds, CPU)
 python train_journal.py

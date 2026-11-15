@@ -44,8 +44,8 @@
 
 ## Reproduction Steps
 
-1. Install dependencies: `pip install torch numpy pandas scikit-learn python-docx reportlab pymupdf`
-2. Prepare data: `python main.py prepare --track FD001 --source data/CMAPSS --output data/prepared-fd001`
+1. Install dependencies: `pip install torch numpy pandas`
+2. Prepare data: `python -m sage.cli prepare --track FD001 --source data/CMAPSS --output data/prepared-fd001`
 3. Train all components: `python train_journal.py` (seeds 42-46, CPU)
 4. Evaluate on clean test: `python eval_journal.py`
 5. Threshold tuning: `python tune_journal.py`
